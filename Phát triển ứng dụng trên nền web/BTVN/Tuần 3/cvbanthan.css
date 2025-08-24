@@ -1,0 +1,42 @@
+.anh{
+	float: left;
+	width: 100px;
+	height: 100px;
+}
+.imgCV{
+	font-size: 20px;
+	color: red;
+	padding-top:80px;
+	padding-left: 300px;
+	text-align: center;
+	width: 50%;
+}
+.header{
+	position: fixed;
+	height: 80px;
+	top: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+.Languages{
+
+}
+.contentS{
+	padding-top: 20px;
+}
+.content{
+	padding-left: 10%;
+	float: left;
+	width: 40%;
+	height: auto;
+	color: red;
+
+}
+.contact,.skill,.education,.Languages{
+	width: 50%;
+	background-color: rgba(255, 255, 255, 0.3);
+	text-align: center;
+}
+

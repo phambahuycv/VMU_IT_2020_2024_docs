@@ -1,0 +1,370 @@
+// connect.php
+
+<?php
+$conn = new PDO('mysql:host=localhost;dbname=banhang','sinhvien','123456');
+?>
+
+//login.php
+
+<?php
+    session_start();
+    include('connect.php');
+    if(!empty($_POST['submit'])){
+        if(isset($_POST['username'])&&isset($_POST['matkhau'])){
+            $username = $_POST['username'];
+            $matkhau = $_POST['matkhau'];
+            $sql = "SELECT * FROM user WHERE username = '$username' AND matkhau = '$matkhau'";
+            $stmt = $conn->prepare($sql);
+            $query = $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if(!$row){
+               echo "Dang nhap that bai";
+            }
+            else{
+                $_SESSION['username'] = $username;
+                header("location: index.php");
+            }
+        }
+    }   
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <fieldset class="form-group">
+                <label for="formGroupExampleInput">Tai khoan</label>
+                <input type="text" class="form-control" name="username" placeholder="Nhap tk">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="formGroupExampleInput2">Mat khau</label>
+                <input type="password" class="form-control" name="matkhau" placeholder="nhap mat khau">
+            </fieldset>
+            <fieldset class="form-group">
+                <input type="submit" class="form-control" name="submit" value="Dang nhap">
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
+
+//logout.php
+
+<?php
+	session_start();
+	if(isset($_SESSION['username'])&&$_SESSION['username']!=NULL){
+		unset($_SESSION['username']);
+		header('location:login.php');
+	}
+?>
+
+//style.css
+
+header{
+	text-align: center;
+	font-weight: bold;
+}
+footer{
+	text-align: center;
+	font-style: italic;
+}
+ul{
+	background-color: #d2d2d2;
+}
+li{
+	padding: 14px 16px;
+}
+content{
+	text-align: center;
+}
+
+//index.php
+
+<?php
+	session_start();
+	if(!isset($_SESSION['username'])){
+		header('location:login.php');
+	}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ban Hang</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>
+			Danh Sach Don Hang
+		</h1>
+	</header>
+	<div class="container">
+		<content>
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link" href="index.php">Trang chu</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="list.php">Don Hang</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="anh.png">Anh cau 1</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="logout.php">Dang xuat</a>
+						</li>
+					</ul>
+		</content>
+		<img style="width: 1110px;height: 300px" src="nen.jpg">
+	</div>
+	<footer>87726 - Pham Ba Huy - CNT61DH
+    	<?php echo($_SESSION['username']) ?>
+		Dang nhap luc: <?php echo date("d,m,Y H:i:s")?>
+    </footer>
+</body>
+</html>
+
+//list.php
+
+<?php
+	session_start();
+	if(!isset($_SESSION['username'])){
+		header('location:login.php');
+	}
+	include('connect.php');
+	if(empty($_POST['submit'])){
+		$sql = "SELECT * FROM hienthi";
+		$stmt = $conn->prepare($sql);
+		$query = $stmt->execute();
+		$result = array();
+		while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$result[] = $row;
+		}
+	}
+	else{
+		$timkiem = $_POST['timkiem'];
+		$sql = "SELECT * FROM hienthi WHERE hovaten LIKE '%$timkiem%'";
+		$stmt = $conn->prepare($sql);
+		$query = $stmt->execute();
+		$result = array();
+		while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$result[] = $row;
+		}
+	}	
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Don Hang</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>
+			Danh Sach Don Hang
+		</h1>
+	</header>
+	
+    <div class="container">
+    	<form method="post">
+		<fieldset class="form-group">
+			<label for="formGroupExampleInput">Tim kiem</label>
+			<input type="text" class="form-control" name="timkiem" placeholder="Nhap ten khach hang can tim kiem">
+		</fieldset>
+		<fieldset class="form-group">
+			
+			<input type="submit" class="form-control" name="submit" value="Tim kiem">
+		</fieldset>
+	</form>
+          <content>
+			<ul class="nav">
+				<li class="nav-item">
+					<a class="nav-link" href="index.php">Trang chu</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="list.php">Don Hang</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="anh.png">Anh cau 1</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="logout.php">Dang xuat</a>
+				</li>
+				<li class="nav-item">
+				</li>
+			</ul>
+		</content>
+		<table class="table table-inverse">
+				<thead>
+					<tr>
+						<th>Ma don hang</th>
+						<th>Khach hang</th>
+						<th>Hang hoa</th>
+						<th>So luong</th>
+						<th>Thao tac</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($result as $items):?>
+					<tr>
+						<td><?php echo $items['id'];?></td>
+						<td><?php echo $items['hovaten'];?></td>
+						<td><?php echo $items['ten'];?></td>
+						<td><?php echo $items['soluong'];?></td>
+						<td>
+							<a href="them.php">Them</a>
+						</td>
+					</tr>
+				<?php endforeach?>
+				</tbody>
+			</table>
+    </div>
+    <footer>87726 - Pham Ba Huy - CNT61DH
+    	<?php echo($_SESSION['username']) ?>
+		Dang nhap luc: <?php echo date("d,m,Y H:i:s")?>
+    </footer>
+</body>
+</html>
+
+//them.php
+
+<?php
+	session_start();
+	if(!isset($_SESSION['username'])){
+	  header('location: login.php');
+}
+
+include('connect.php');
+$sql = "SELECT khachhang.id AS idkh,hovaten FROM khachhang";
+$sql2 = "SELECT hanghoa.id AS idhh,ten FROM hanghoa";
+
+$stmt = $conn->prepare($sql);
+$query = $stmt->execute();
+
+$stmt1 = $conn->prepare($sql2);
+$query1 = $stmt1->execute();
+
+$result= array();
+$result1= array();
+
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$result[] = $row;
+}
+
+while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+		$result1[] = $row1;
+}
+
+if(!empty($_POST['submit'])){
+	if(isset($_POST['iddonhang'])&&isset($_POST['idctdh'])&&isset($_POST['khachhang'])&&isset($_POST['hanghoa'])&&isset($_POST['soluong'])) {
+		$iddonhang= $_POST['iddonhang'];
+		$idctdh=$_POST['idctdh'];
+		$khachhang=$_POST['khachhang'];
+		$hanghoa=$_POST['hanghoa'];
+		$soluong=$_POST['soluong'];
+		$sql = "INSERT INTO donhang(id,khachhang_id) VALUES('$iddonhang','$khachhang');INSERT INTO chitietdonhang(id,donhang_id,hanghoa_id,soluong) VALUES('$idctdh','$iddonhang','$hanghoa','$soluong')";
+		var_dump($sql);
+		$stmt = $conn->prepare($sql);
+		$query = $stmt->execute();
+		
+		if($query){
+			header('location:list.php');
+		}
+		else{
+			echo "them du lieu that bai";
+		}
+	}
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Them don hang</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+		<h1>
+			Them Don Hang
+		</h1>
+	</header>
+	<content>
+		<div class="container">
+		<ul class="nav">
+			<li class="nav-item">
+				<a class="nav-link" href="index.php">Trang chu</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="list.php">Danh sach van don</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="anh.png">Anh cau 1</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="logout.php">Dang xuat</a>
+			</li>
+		</ul>
+			<!-- ? -->
+			<form method="post">
+				<fieldset class="form-group">
+					<label for="formGroupExampleInput">ID Don Hang</label>
+					<input type="text" class="form-control" name="iddonhang" placeholder="Nhap id don hang">
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="formGroupExampleInput2">ID chi tiet don hang</label>
+					<input type="text" class="form-control" name="idctdh" placeholder="Nhap id chi tiet don hang">
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="formGroupExampleInput2">Khach hang</label>
+					<select class="form-control" name="khachhang" placeholder="Chon khachhang">
+						<<?php foreach ($result as $items): ?>
+							<option value="<?php echo $items['idkh']; ?>"><?php echo $items['hovaten']; ?></option>
+						<?php endforeach ?>
+					</select>
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="formGroupExampleInput2">Hang hoa</label>
+					<select class="form-control" name="hanghoa" placeholder="Chon hang hoa">
+						<<?php foreach ($result1 as $items): ?>
+							<option value="<?php echo $items['idhh']; ?>"><?php echo $items['ten']; ?></option>
+						<?php endforeach ?>
+					</select>
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="formGroupExampleInput2">So luong</label>
+					<input type="text" class="form-control" name="soluong" placeholder="Nhap so luong">
+				</fieldset>
+				<fieldset class="form-group">
+					<input type="submit" class="form-group" name="submit" value="Lưu">
+				</fieldset>
+			</form>
+		</div>
+	</content>
+	<footer>87726 - Pham Ba Huy - CNT61DH
+    	<?php echo($_SESSION['username']) ?>
+		Dang nhap luc: <?php echo date("d,m,Y H:i:s")?>
+    </footer>
+</body>
+</html>
+

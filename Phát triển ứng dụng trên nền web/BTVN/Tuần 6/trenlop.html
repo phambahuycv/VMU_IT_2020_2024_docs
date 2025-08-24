@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tuan6</title>
+	<script type="text/javascript" src="trenlop.js"></script>
+</head>
+<body onload="disptime()"   TEXT ="red">
+	<FORM> 
+	<INPUT TYPE="text" SIZE =40>
+	<br>
+		<a href = "#" onMouseOver = "showLink(1)"> America </a><br>
+		<a href = "#" onMouseOver = "showLink(2)"> Korea </a><br>
+		<a href = "#" onMouseOver = "showLink(3)"> Vietnam </a><br>
+	</FORM>
+	<FORM NAME = "myfm">
+		<INPUT TYPE="text" NAME="first_text">
+		<INPUT TYPE="button" VALUE="Copy" onClick="writeIt(myfm.first_text.value);">
+		<INPUT TYPE="text" NAME="second_text">
+	</FORM>
+	<form>
+		Enter the radius of the circle:
+		<INPUT TYPE = TEXT size = 5 name = "rad">
+			<BR><BR>
+		<INPUT TYPE = button value = "Display Area" onclick ="doCal(rad.value)">
+	</form>
+
+	<FORM>
+		<B>Enter Value:</B>
+		<INPUT TYPE = TEXT size = 5 name = "absofvalue">
+		<BR><BR>
+		<INPUT TYPE = button value = "Absulute Value" onclick = "show(this.form.absofvalue.value)">
+	</FORM>
+
+	<form>
+		<br><br>
+		<input type="button" value="cau 11.3" onclick="c11_3()">
+	</form>
+	<form>
+		<br><br>
+		<input type="button" value="cau 11.4" onclick="c11_4()">
+	</form>
+
+	<P> The time is displayed on the next textbox:
+	<BR><BR>
+	<FORM Name = "MyPage">
+		<INPUT Type = "text" Name="time" size =12 value = "" >
+	</FORM>
+
+	<FORM ACTION = "simple.html">
+		<INPUT TYPE = "submit" NAME= "Submit">
+		
+	</FORM>
+	<form>
+		Enter the expression:
+		<input type="text" name="expr" size="15">
+		<br><br>
+		<input type="button" value="Calculate" onClick="compute(this.form)">
+		<br><br><br>
+		The result is:
+		<input type="text" name="ketqua" size="15">
+		<INPUT TYPE = "reset" NAME= "Reset">
+	</form>
+
+	<FORM>
+		<br>
+		Please enter a number:
+		<INPUT TYPE = text size = 5 onChange = "checkNum(this.value)">
+	</FORM>
+
+	<FORM NAME = "form_2">
+		<INPUT TYPE="checkbox" NAME="check_1" onClick="switchLight();">
+		The Light Switch 
+	</FORM>
+
+	<form name="form_1">
+		<input type="radio" name="radio_1" onclick="offButton()">
+		Light off
+		<input type="radio" name="radio_2" onclick="onButton()" checked>
+		Light on
+	</form>
+
+	<H2 ALIGN = "CENTER"> Handling Form Events</H2><HR>
+	<FORM NAME = "form1">
+		<P>
+			 First name: 
+			<INPUT TYPE="text" NAME="fname" size=10 onBlur = "validateFirstName()">
+			Last name: 
+			<INPUT TYPE="text" NAME="lname" size=15 onBlur = "validateLastName()">
+		</P>
+		<P> 
+			Email: 
+			<INPUT TYPE="text" NAME="email" size=10 onBlur = "validateFirstName()">
+			Comments: 
+			<TEXTAREA NAME="comment" rows=4 cols=30>
+			Enter your comments 
+			</TEXTAREA>
+		</P>
+		<P ALIGN="CENTER">
+			<INPUT TYPE = "button" VALUE="Submit this form" onClick = "proccessForm()">
+			<INPUT TYPE= "reset">
+		</P>
+	</FORM>
+</body>
+</html>
