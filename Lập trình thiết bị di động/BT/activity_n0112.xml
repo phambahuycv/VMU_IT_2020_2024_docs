@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".N01_12">
+
+    <View
+        android:id="@+id/viw1_0112"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/red"
+        android:onClick="viw_Clicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viw2_0112"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/green"
+        android:onClick="viw_Clicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button99" />
+
+    <View
+        android:id="@+id/viw3_0112"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/blue"
+        android:onClick="viw_Clicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button101" />
+
+    <View
+        android:id="@+id/viw4_0112"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/yellow"
+        android:onClick="viw_Clicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button103" />
+
+    <Button
+        android:id="@+id/button98"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 1"
+        android:onClick="btn1_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw1_0112"
+        app:layout_constraintTop_toTopOf="@+id/viw1_0112" />
+
+    <Button
+        android:id="@+id/button99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 1 1"
+        android:onClick="btni_1_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw1_0112"
+        app:layout_constraintTop_toBottomOf="@+id/button98" />
+
+    <Button
+        android:id="@+id/button100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 2"
+        android:onClick="btn2_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw2_0112"
+        app:layout_constraintTop_toTopOf="@+id/viw2_0112" />
+
+    <Button
+        android:id="@+id/button101"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 2 1"
+        android:onClick="btni_1_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw2_0112"
+        app:layout_constraintTop_toBottomOf="@+id/button100" />
+
+    <Button
+        android:id="@+id/button102"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 3"
+        android:onClick="btn3_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw3_0112"
+        app:layout_constraintTop_toTopOf="@+id/viw3_0112" />
+
+    <Button
+        android:id="@+id/button103"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 3 1"
+        android:onClick="btni_1_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw3_0112"
+        app:layout_constraintTop_toBottomOf="@+id/button102" />
+
+    <Button
+        android:id="@+id/button104"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 4"
+        android:onClick="btn4_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw4_0112"
+        app:layout_constraintTop_toTopOf="@+id/viw4_0112" />
+
+    <Button
+        android:id="@+id/button105"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="btn 4 1"
+        android:onClick="btni_1_Clicked"
+        app:layout_constraintStart_toEndOf="@+id/viw4_0112"
+        app:layout_constraintTop_toBottomOf="@+id/button104" />
+</androidx.constraintlayout.widget.ConstraintLayout>
