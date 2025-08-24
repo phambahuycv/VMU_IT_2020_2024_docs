@@ -1,0 +1,49 @@
+#include<stdio.h>
+
+bool so_nguyen_to_cung_nhau(int x, int y)
+{
+	int g=y;{
+	while(x>0){
+		g=x;
+		x=y%x;
+		y=g;
+	}
+	if(g==1)
+	return true;
+	else
+	return false;
+}
+}
+
+int so_nghich_dao(int a, int N){
+	int u[100], v[100], g[100];
+	int i=0, x, y;
+	g[i] = N; g[i+1] = a;
+	u[i]= 1 ; u[i+1] = 0;
+	v[i]= 0 ; v[i+1] = 1;
+	i=1;
+	while(g[i]!=0){
+		y=g[i-1]/g[i];
+		g[i+1] = g[i-1] - y*g[i];
+		u[i+1] = u[i-1] - y*u[i];
+		v[i+1] = v[i-1] - y*v[i];
+		i=i+1;
+	}
+	x=v[i-1];
+	if(x>0)
+	return x;
+	else
+	return (N+x);
+}
+
+int main(){
+	int a, N=256, a_1;
+	for(a=1; a<256; a++)
+	if(so_nguyen_to_cung_nhau(a,N) == true){
+		a_1 = so_nghich_dao(a,N);
+		printf("So nghich dao cua %d dong du %d = %d\n", a, N , a_1);
+	}
+	else
+		printf("Khong ton tai so nghich dao cua %d dong du %d\n",a, N);
+	
+}
