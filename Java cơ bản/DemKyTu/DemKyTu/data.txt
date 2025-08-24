@@ -1,0 +1,37 @@
+Java cho phép khai báo một lớp trong một lớp khác.
+Inner class và Nested class
+
+public class Outer {
+    public class Inner {}
+    public static class Nested {}
+
+    public void methodA() {
+        Inner inner = new Inner();
+        Nested nested = new Nested();
+    }
+}
+// Gọi từ lớp khác
+Outer outer = new Outer();
+Outer.Inner inner = outer.new Inner();
+
+Outer.Nested nested = new Outer.Nested();
+---------------------------------------------
+Singleton class: là lớp mà chỉ sinh ra một đối tượng (có 1 đối tượng) tại một thời điểm khi chương trình thực thi.
+Cách khai báo Singleton class
+
+public class Singleton {
+    private static Singleton instance = null;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (instance != null) {
+            return instance;
+        } else {
+            instance = new Singleton();
+            return instance;
+        }
+    }
+}
+----------------------------------------------------
+Bài tập: viết một chương trình đọc đoạn văn bản từ tệp tin. Thực hiện tác các từ và đếm số ký tự của mỗi từ. Sau đó thống kê về số lượng ký tự của các từ (số lượng từ có x ký tự). Và in ra kết quả.
