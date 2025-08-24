@@ -1,0 +1,290 @@
+Trigger cau 1:
+if exists (select name from sysobjects
+where name = 't_CapNhatTongThuLao' and type = 'TR')
+drop trigger t_CapNhatTongThuLao
+go
+create trigger t_CapNhatTongThuLao
+on DienPhim for insert, update, delete
+as
+declare @MaDV nvarchar(30)
+set @MaDV=''
+Select @MaDV = MaDV from Inserted
+update DienVien set TongThuLao=coalesce((Select Sum(ThuLao) from DienPhim where
+MaDV=@MaDV),0)
+where MaDV=@MaDV
+Select @MaDV = MaDV from Deleted
+update DienVien set TongThuLao=coalesce((Select Sum(ThuLao) from DienPhim where
+MaDV=@MaDV),0)
+where MaDV=@MaDV
+
+
+--Trigger ca 2:
+Alter table Phim add TongTienChiDienVien numeric
+if exists (select name from sysobjects
+where name = 't_CapNhatTongTienChiDienVien' and type = 'TR')
+drop trigger t_CapNhatTongTienChiDienVien
+go
+create trigger t_CapNhatTongTienChiDienVien
+on DienPhim for insert, update, delete
+as
+declare @MaPhim nvarchar(50)
+set @MaPhim=''
+Select @MaPhim = MaPhim from Inserted
+update Phim set TongTienChiDienVien=coalesce((Select Sum(ThuLao) from DienPhim where
+MaPhim=@MaPhim),0)
+where MaPhim=@MaPhim
+
+Select @MaPhim = MaPhim from Deleted
+update Phim set TongTienChiDienVien=coalesce((Select Sum(ThuLao) from DienPhim where
+MaPhim=@MaPhim),0)
+where MaPhim=@MaPhim
+
+
+--Trigger cau 3:
+if exists (select name from sysobjects
+where name = 't_CapNhatTongSoSP' and type = 'TR')
+drop trigger t_CapNhatTongSoSP' 
+go
+create trigger t_CapNhatTongSoSP' 
+on ChamCong for insert, update, delete
+as
+declare @MaSP nvarchar(50)
+set @MaSP =''
+Select @MaSP = MaSP from Inserted
+update SanPham set TongSoSP=coalesce((Select Sum(SoSP) from ChamCong where
+MaSP=@MaSP),0)
+where MaSP=@MaSP
+
+Select @MaSP = MaSP from Deleted
+update SanPham set TongSoSP=coalesce((Select Sum(SoSP) from ChamCong where
+MaSP=@MaSP),0)
+where MaSP=@MaSP
+
+Trigger cau 1:
+if exists (select name from sysobjects
+where name = 't_CapNhatTongThuLao' and type = 'TR')
+drop trigger t_CapNhatTongThuLao
+go
+create trigger t_CapNhatTongThuLao
+on DienPhim for insert, update, delete
+as
+declare @MaDV nvarchar(30)
+set @MaDV=''
+Select @MaDV = MaDV from Inserted
+update DienVien set TongThuLao=coalesce((Select Sum(ThuLao) from DienPhim where
+MaDV=@MaDV),0)
+where MaDV=@MaDV
+Select @MaDV = MaDV from Deleted
+update DienVien set TongThuLao=coalesce((Select Sum(ThuLao) from DienPhim where
+MaDV=@MaDV),0)
+where MaDV=@MaDV
+
+
+--Trigger ca 2:
+Alter table Phim add TongTienChiDienVien numeric
+if exists (select name from sysobjects
+where name = 't_CapNhatTongTienChiDienVien' and type = 'TR')
+drop trigger t_CapNhatTongTienChiDienVien
+go
+create trigger t_CapNhatTongTienChiDienVien
+on DienPhim for insert, update, delete
+as
+declare @MaPhim nvarchar(50)
+set @MaPhim=''
+Select @MaPhim = MaPhim from Inserted
+update Phim set TongTienChiDienVien=coalesce((Select Sum(ThuLao) from DienPhim where
+MaPhim=@MaPhim),0)
+where MaPhim=@MaPhim
+
+Select @MaPhim = MaPhim from Deleted
+update Phim set TongTienChiDienVien=coalesce((Select Sum(ThuLao) from DienPhim where
+MaPhim=@MaPhim),0)
+where MaPhim=@MaPhim
+
+
+--Trigger cau 3:
+if exists (select name from sysobjects
+where name = 't_CapNhatTongSoSP' and type = 'TR')
+drop trigger t_CapNhatTongSoSP' 
+go
+create trigger t_CapNhatTongSoSP' 
+on ChamCong for insert, update, delete
+as
+declare @MaSP nvarchar(50)
+set @MaSP =''
+Select @MaSP = MaSP from Inserted
+update SanPham set TongSoSP=coalesce((Select Sum(SoSP) from ChamCong where
+MaSP=@MaSP),0)
+where MaSP=@MaSP
+
+Select @MaSP = MaSP from Deleted
+update SanPham set TongSoSP=coalesce((Select Sum(SoSP) from ChamCong where
+MaSP=@MaSP),0)
+where MaSP=@MaSP
+
+
+
+
+--
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PhamBaHuy87726
+{
+    public partial class frmGiay87726 : Form
+    {
+        public frmGiay87726()
+        {
+            InitializeComponent();
+        }
+        Database db = new Database();
+        Giay giay = new Giay();
+        public void Hien()
+        {
+            dataGridView1.DataSource = giay.hienthi();
+        }
+        private void frmGiay87726_Load(object sender, EventArgs e)
+        {
+            btnreturn.Visible = false;
+            Hien();
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            giay.them(txtMaGiay.Text, txtTen.Text, txtMaLoai.Text, txtNuoc.Text, txtTskt.Text, txtGia.Text);
+            Hien();
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            giay.sua(txtMaGiay.Text, txtTen.Text, txtMaLoai.Text, txtNuoc.Text, txtTskt.Text, txtGia.Text);
+            Hien();
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            giay.xoa(txtMaGiay.Text);
+            Hien();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = dataGridView1.CurrentCell.RowIndex;
+            txtMaGiay.Text = dataGridView1.Rows[i].Cells[0].Value.ToString();
+            txtTen.Text = dataGridView1.Rows[i].Cells[1].Value.ToString();
+            txtMaLoai.Text = dataGridView1.Rows[i].Cells[2].Value.ToString();
+            txtNuoc.Text = dataGridView1.Rows[i].Cells[3].Value.ToString();
+            txtTskt.Text = dataGridView1.Rows[i].Cells[4].Value.ToString();
+            txtGia.Text = dataGridView1.Rows[i].Cells[5].Value.ToString();
+        }
+
+        private void btnTK_Click(object sender, EventArgs e)
+        {
+            btnreturn.Visible = true;
+            dataGridView1.DataSource = giay.timkiem(txtTen.Text,txtMaLoai.Text);
+        }
+
+        private void btnreturn_Click(object sender, EventArgs e)
+        {
+            txtMaGiay.ResetText();
+            txtTen.ResetText();
+            txtMaLoai.ResetText();
+            txtNuoc.ResetText();
+            txtTskt.ResetText();
+            txtGia.ResetText();
+            btnreturn.Visible = false;
+            Hien();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
+namespace PhamBaHuy87726
+{
+    class Giay
+    {
+        Database db = new Database();
+
+        public DataTable hienthi()
+        {
+            string sql = "select * from Giay";
+            DataTable dt = db.excute(sql);
+            return dt;
+        }
+        public DataTable timkiem(string ten, string loai)
+        {
+            string sql = "select * from Giay where TenGiay=N'"+ten+"' and MaLoai='"+loai+"'";
+            DataTable dt = db.excute(sql);
+            return dt;
+        }
+        public void them(string MaGiay, string TenGiay, string MaLoai, string NuocSX, string ThongSoKT, string GiaThanh)
+        {
+            string themm = string.Format("insert into Giay values ('{0}',N'{1}','{2}',N'{3}',N'{4}','{5}')", MaGiay, TenGiay, MaLoai, NuocSX, ThongSoKT, GiaThanh);
+            db.nonexcute(themm);
+        }
+
+        public void sua(string MaGiay, string TenGiay, string MaLoai, string NuocSx, string ThongSoKT, string GiaThanh)
+        {
+            string suaa = string.Format("update Giay set TenGiay=N'{1}',MaLoai='{2}',NuocSX=N'{3}',ThongSoKT=N'{4}',GiaThanh='{5}' where  MaGiay= '{0}'", MaGiay, TenGiay, MaLoai, NuocSx, ThongSoKT, GiaThanh);
+            db.nonexcute(suaa);
+        }
+        public void xoa(string MaGiay)
+        {
+            string xoaa = string.Format("Delete from Giay where MaGiay='{0}'", MaGiay);
+            db.nonexcute(xoaa);
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
+namespace PhamBaHuy87726
+{
+    class Database
+    {
+        public static string chuoiketnoi = @"Data Source=LAPTOP-7RUTJAEC\SQLEXPRESS;Initial Catalog=87726;User ID=sa;Password=123456";
+        private SqlConnection conn;
+        SqlDataAdapter da = null;
+        DataSet ds = null;
+        public Database()
+        {
+            conn = new SqlConnection(chuoiketnoi);
+        }
+
+        public DataTable excute(string str)
+        {
+            da = new SqlDataAdapter(str, conn);
+            ds = new DataSet();
+            da.Fill(ds);
+            return ds.Tables[0];
+        }
+
+        public void nonexcute(string str)
+        {
+            SqlCommand command = new SqlCommand(str, conn);
+            conn.Open();
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+    }
+}

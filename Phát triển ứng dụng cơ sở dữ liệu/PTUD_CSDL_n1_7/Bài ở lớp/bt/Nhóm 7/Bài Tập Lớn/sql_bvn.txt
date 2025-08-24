@@ -1,0 +1,85 @@
+create database Nhom7_N04
+use Nhom7_N04
+go 
+create table NhanVien(
+MaNV varchar(20) primary key, 
+TenNV Nvarchar(50), 
+Gioitinh bit, 
+Ngaysinh datetime, 
+SDT int, 
+Diachi Nvarchar(50)
+)
+
+insert into NhanVien values('NV01', N'Nguyên Văn A', 0, '02/10/2002', 098764532, N'HaiPhong')
+insert into NhanVien values('NV02', N'Nguyên Thi A', 1, '02/01/2002', 098764521, N'HaNoi')
+insert into NhanVien values('NV03', N'Tran Văn A', 0, '12/10/2002', 098764567, N'Nghệ An')
+insert into NhanVien values('NV04', N'Hoang Văn c', 0, '01/11/2002', 098764598, N'HaiDuong')
+insert into NhanVien values('NV05', N'Trần Ngọc Vân ', 1, '02/12/2002', 098764590, N'ThanhHoa')
+
+
+
+
+create table KhachHang(
+MaKhach varchar(20)  primary key, 
+Tenkhach Nvarchar(50), 
+Ghichu Nvarchar(50), 
+)
+Insert into KhachHang values ('KH01', N'Nguyên Bảo Linh', N'Khách hàng thân thiết');
+Insert into KhachHang values ('KH02', N'Nguyên Bảo An', N'Khach hàng Thân thiết');
+Insert into KhachHang values ('KH03', N'Trần Thi Hoa', N'Khach hàng Thân thiết');
+Insert into KhachHang values ('KH04', N'Mai Ngọc Diệp', N'Khach hàng Thân thiết');
+Insert into KhachHang values ('KH05', N'Hoang Linh Đan', N'Khach hàng Thân thiết');
+
+
+
+
+create table MonAn(
+MaMon varchar(20) primary key, 
+Tenmon Nvarchar(50), 
+Ghichu nvarchar(50)
+)
+
+insert into MonAn values('MA01', N'Tom Hum', N'Món Chay')
+insert into MonAn values('MA02', N'Thịt Chien', N'Món Mặn')
+insert into MonAn values('MA03', N'Muc hap ', N'Món Mặn')
+insert into MonAn values('MA04', N'trứng rán', N'Món Mặn')
+insert into MonAn values('MA05', N'Cá Kho', N'Món Chay')
+
+select * from MonAn
+
+Create table DonHang(
+Sodonhang VARCHAR(20) primary key, 
+Ngay date, 
+MaKhach VARCHAR(20) foreign key(MaKhach) references KhachHang(MaKhach), 
+MaNV VARCHAR(20) foreign key(MaNV) references NhanVien(MaNV) , 
+Ghichu nvarchar(50), 
+)
+insert into DonHang values('DH01', '03/10/2022', 'KH01', 'NV05', '')
+insert into DonHang values('DH02', '04/10/2022', 'KH03', 'NV01', '')
+insert into DonHang values('DH03', '05/10/2022', 'KH04', 'NV03', '')
+insert into DonHang values('DH04', '06/10/2022', 'KH02', 'NV01', '')
+insert into DonHang values('DH05', '07/10/2022', 'KH01', 'NV01', '')
+
+create table CTDH(
+ID int primary key, 
+Sodonhang varchar(20) foreign key(Sodonhang) references DonHang(Sodonhang), 
+MaMon VARCHAR(20) FOREIGN KEY(MaMon) REFERENCES MonAn(MaMon),
+Dongia float, 
+Thanhtien float
+)
+insert into CTDH values ('01','DH01', 'MA01', 12000, 24000) 
+insert into CTDH values ('02','DH05', 'MA05', 13000, 34000) 
+insert into CTDH values ('03','DH03', 'MA03', 10000, 20000) 
+insert into CTDH values ('04','DH02', 'MA03', 12000, 24000) 
+insert into CTDH values ('05','DH01', 'MA01', 11000, 22000) 
+
+-- câu 2: Tạo 1 Hàm trả về tổng tiền phải trả của khách hàng có tham số truyền vào là mã khách hàng
+
+create function Cau2_1(@MA varchar(20))
+returns table as
+return
+select Thanhtien from DonHang 
+							inner join CTDH on CTDH.Sodonhang= DonHang.Sodonhang
+							inner join KhachHang on KhachHang.MaKhach=DonHang.MaKhach
+where(KhachHang.MaKhach= @MA)
+

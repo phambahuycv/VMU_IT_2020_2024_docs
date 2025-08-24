@@ -1,0 +1,57 @@
+C1:
+CREATE FUNCTION cau1
+(@t nvarchar(50))
+returns table
+AS
+return(
+SELECT MaNV, TenNV, MaHang, NgaySinh, DT
+FROM tbNhanVien)
+
+C2:
+CREATE FUNCTION cau2
+(@h nvarchar(50) ,@t nvarchar(50))
+returns table
+AS
+return (
+SELECT MaPChi, NDung, NgayChi ='2/2022' OR '4/2022', MaNV, MaLiDo, SoTienChi, DienGiai 
+FROM tbHang inner join tbNhanVien on tbHang.MaHang= tbNhanVien.MaHang
+			inner join PhieuChi on tbNhanVien.MaNV= tbPhieuChi.MaNV
+WHERE (Tenhang =@h AND TenNV=@t))
+
+C3:
+REATE PROCEDURE cau3
+@tbPhieuchi_Tong float OUT
+
+AS
+BEGIN
+DECLARE @tbPhieuchi_MaPC INT;
+SET @tbPhieuchi_NgayChi = 2022
+END
+
+C4:
+CREATE PROCEDURE cau4
+@tbPhieuchi_LiDo NVACHAR(50) OUT
+
+AS
+BEGIN
+DECLARE @tbPhieuchi_MaPC INT;
+SET null
+END
+
+C5:
+LTER TABLE tbPhieuChi
+ADD PhuThu float NOT NULL;
+CREATE TRIGGER cau5 ON tbPhieuChi
+AFTER UPDATE AS
+BEGIN
+	UPDATE PhuThu
+	SET PhieuThu= PhieuThu+ (IF (SoTienChi < 1000000)
+		SELECT PhieuThu= 10000
+		IF (SoTienChi > 1000000 AND SoTienChi < 5000000)
+		SELECT PhieuThu= 20000
+		IF (SoTienChi > 5000000)
+		SELECT PhieuThu= 30000
+		)
+		FROM tbPhieuChi
+		JOIN inserted ON tbPhieuChi.MaPhieuChi= inserted.MaPhieuChi
+END
